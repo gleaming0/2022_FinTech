@@ -1,6 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import HeaderWhite from "../components/HeaderWhite";
 import SearchInput from "../components/News/SearchInput";
+import NewsList from "../components/News/NewsList";
 
 /*
     searchText : 검색어를 입력할 곳
@@ -12,12 +14,16 @@ const NewsApiPage = () => {
   const [searchText, setUsers] = useState("");
   const [searchResultList, setSearchResultList] = useState([]);
 
-  const handleSearchTextChange = () => {
-    //input 변경사항을 search Text 반영
+  const handleSearchTextChange = (e) => {
+    //input 변경사항을 searchText에 반영
+    const { value } = e.target;
+    console.log(value);
+    //setSearchText(value);
+    console.log("searchText : ", searchText)
   };
 
   const handleSearchButtonClick = () => {
-    //axios 통해 newsList 요청하기
+    //axios 통해 NewsList 요청하기
   };
 
   return (
