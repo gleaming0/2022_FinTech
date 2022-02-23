@@ -1,14 +1,19 @@
-import Welcome from './components/Welcome';
-import { useState } from "react"; //state hook을 import
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Welcome from "./components/Welcome";
 import ListComponent from './components/ListComponent';
-import HeaderWhite from './components/HeaderWhite';
 
 function App() {
   return (
-    <div>
-      <HeaderWhite title="메인" />
-      <ListComponent></ListComponent>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/test" element={<ListComponent/>}></Route>
+      </Routes>
+
+      <Routes>
+        <Route path="/" element={<Welcome/>}></Route>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
