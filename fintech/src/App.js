@@ -8,7 +8,8 @@ function App() {
 
   const handleInputChange = (e) => {
     setUsernameWithState(e.target.value);
-    //console.log(username); //Console 출력 확인(리렌더링x)
+    //username = e.target.value;
+    //console.log(username);
   };
 
   return (
