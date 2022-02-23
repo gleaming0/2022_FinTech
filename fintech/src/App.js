@@ -1,15 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import Welcome from './components/Welcome';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p> 이걸 바꾸면!? </p>
-        
-      </header>
+    <div>
+      <Welcome username="홍길동" age="22"></Welcome>
+      <Welcome username="김아은" age="22"></Welcome>
     </div>
+    
   );
 }
 
