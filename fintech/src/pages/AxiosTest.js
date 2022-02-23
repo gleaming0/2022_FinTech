@@ -7,7 +7,7 @@ const AxiosTest = () => {
   const handleClick = () => {
       console.log("click");
       axios
-        .get("https://newsapi.org/v2/everything?q=tesla&from=2022-01-2&sortBy=publishedAt&apiKey=0830ad85ee76460b9285df0e8960a625")
+        .get("https://newsapi.org/v2/everything?q=tesla&from=2022-01-23&sortBy=publishedAt&apiKey=0830ad85ee76460b9285df0e8960a625")
         .then((response) => {
           console.log(response);
       })

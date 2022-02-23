@@ -1,15 +1,7 @@
-import React from 'react';
-import HeaderWhite from '../HeaderWhite';
-import SearchInput from './SearchInput';
+import React from "react";
 
 const NewsList = () => {
-  return (
-    <div>
-        <HeaderWhite title="뉴스 검색"></HeaderWhite>
-        <SearchInput></SearchInput>
-        <NewsList></NewsList>
-    </div>
-  );
+  return <div>NewsList</div>;
 };
 
-export default NewsList
+export default NewsList;
