@@ -11,7 +11,7 @@ const ListComponent = () => {
     <div>
         {
             users.map((user) => {
-                <Welcome username={user.name} age={user.age}></Welcome>;
+                return <Welcome username={user.name} age={user.age}></Welcome>;
             })
         }
     </div>
