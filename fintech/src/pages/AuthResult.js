@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderWhite from '../components/HeaderWhite';
 import { useLocation } from "react-router-dom";
 import queryString from 'query-string';
@@ -10,6 +10,11 @@ const AuthResult = () => {
     const [accessToken, setaccessToken] = useState("토큰을 받기 전입니다.");
     const [userSeqNo, setuserSeqNo] = useState("사용자 번호");
     console.log(code); //-> 오브젝트 중 code만 보임
+
+    //페이지 불러오기 전, 불러온 후, 창 닫기, 렌더링 시 동작하는 
+    useEffect(() => {
+        getAccessToken();
+    }, []);
 
     const getAccessToken = () => {
         const sendData = {
@@ -25,7 +30,7 @@ const AuthResult = () => {
 
         const option = {
             method: "POST",
-            url: "/oauth/2.0/token",
+            url: "https://testapi.openbanking.or.kr/oauth/2.0/token",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             },
@@ -41,6 +46,8 @@ const AuthResult = () => {
                 const userSeqNo = data.user_seq_no;
                 setaccessToken(accessToken);
                 setuserSeqNo(userSeqNo);
+                localStorage.setItem("accessToken", data.access_token);
+                localStorage.setItem("userSeqNo", data.user_seq_no);
             }
         });
     };
