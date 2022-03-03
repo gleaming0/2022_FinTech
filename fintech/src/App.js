@@ -5,6 +5,7 @@ import AxiosTest from "./pages/AxiosTest";
 import NewsApiPage from "./pages/NewsApiPage";
 import AuthPage from "./pages/AuthPage";
 import AuthResult from "./pages/AuthResult";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/authResult" element={<AuthResult />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/main" element={<MainPage />}></Route>
       </Routes>
     </BrowserRouter>
 
