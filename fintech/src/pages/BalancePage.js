@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import queryString from 'query-string';
 import HeaderWhite from '../components/HeaderWhite';
+import BalanceCard from '../components/Balance/BalanceCard';
 
 const BalancePage = () => {
     useEffect(() => {
@@ -41,12 +42,18 @@ const BalancePage = () => {
 
         axios(option).then(( data ) => {
             console.log(data);
+            setbalance(data);
         });        
 
     };
   return (
     <div>
         <HeaderWhite title="잔액조회"></HeaderWhite>
+        <BalanceCard
+            bankName={balance.bank_name}
+            fintechNo={balance.fintech_use_num}
+            balance={balance.balance_amt}>
+        </BalanceCard>
     </div>
   );
 };
