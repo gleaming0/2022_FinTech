@@ -8,10 +8,13 @@ import BalanceCard from '../components/Balance/BalanceCard';
 const BalancePage = () => {
     useEffect(() => {
         getUserBalance();
+        getTransactionList();
     }, []);
 
     const { fintechUseNo } = queryString.parse(useLocation().search);
     const [balance, setbalance] = useState("");
+    const [transactionList, settransactionList] = useState([]);
+
     console.log(fintechUseNo);
 
     const getTransId = () => {
@@ -44,8 +47,36 @@ const BalancePage = () => {
             console.log(data);
             setbalance(data);
         });        
-
     };
+
+    const getTransactionList = () => {
+        //# work9 거래내역조회 기능 실습
+        const accessToken = localStorage.getItem("accessToken");
+        const sendData = { //object
+            bank_tran_id: getTransId(),
+            fintech_use_num: fintechUseNo,
+            inquiry_type: "A",
+            inquiry_base: "D",
+            from_date: "20190101",
+            to_date: "20190101",
+            sort_order: "D",
+            tran_dtime: "20220307154030",
+        };
+
+        const option = {
+            method: "GET",
+            url: "/v2.0/account/transaction_list/fin_num", //프록시 설정 안했다면 https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+            params: sendData, //object
+        };
+
+        axios(option).then(( data ) => {
+            settransactionList(data.res_list)
+        });        
+    };
+
   return (
     <div>
         <HeaderWhite title="잔액조회"></HeaderWhite>
@@ -54,6 +85,15 @@ const BalancePage = () => {
             fintechNo={balance.fintech_use_num}
             balance={balance.balance_amt}>
         </BalanceCard>
+
+        {/* 프로그램*/}
+        {transactionList.map((transaction) => {
+            return (
+                <p>
+                    {transaction.print_content} / {transaction.tran_amt}
+                </p>
+            );
+        })}
     </div>
   );
 };
