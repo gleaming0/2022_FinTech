@@ -13,7 +13,8 @@ const TransactionList = ({ transactionList }) => {
           </tr>
         </thead>
         <tbody>
-          {transactionList.map((transaction, index) => {
+          {transactionList.length > 0 &&
+           transactionList.map((transaction, index) => {
             return (
               <tr key={index}>
                 <td>{transaction.tran_date}</td>
