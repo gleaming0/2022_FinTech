@@ -41,6 +41,37 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
 
   const handleWithdraw = () => {
     //axios call
+    //# work10 출금 이체 API요청 작성하기
+    let sendData = JSON.stringify({
+      bank_tran_id: genTransId(),
+      cntr_account_type: "N",
+      cntr_account_num: "100000000001",
+      dps_print_content: "쇼핑몰환불",
+      fintech_use_num: fintechUseNo,
+      wd_print_content: "키사페이출금",
+      tran_amt: amount,
+      tran_dtime: "20190910101921",
+      req_client_name: "홍길동",
+      req_client_num: "HONGGILDONG1234",
+      req_client_fintech_use_num: fintechUseNo,
+      transfer_purpose: "ST",
+      recv_client_name: "잠만보",
+      recv_client_bank_code: "097",
+      recv_client_account_num: "100000000001",
+    });
+
+    const option = {
+      method: "POST",
+      url: "/v2.0/transfer/withdraw/fin_num",
+      headers: {
+        Authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+      data: sendData,
+    };
+
+    axios(option).then(({ data }) => {
+      console.log(data);
+    });
   };
 
   const deposit = () => {};
