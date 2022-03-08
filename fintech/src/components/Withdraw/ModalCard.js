@@ -42,7 +42,7 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
   const handleWithdraw = () => {
     //axios call
     //# work10 출금 이체 API요청 작성하기
-    let sendData = JSON.stringify({
+    let sendData = JSON.stringify({ //JSON.stringify 사용 안해도 오류는 안남
       bank_tran_id: genTransId(),
       cntr_account_type: "N",
       cntr_account_num: "100000000001",
@@ -71,10 +71,54 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
 
     axios(option).then(({ data }) => {
       console.log(data);
+      if (data.rep_code === "A0000") {
+        deposit();
+      }
     });
   };
 
-  const deposit = () => {};
+  const deposit = () => {
+    //# work11 최종 실습! 입금 이체 작성
+    const sendData = {
+      cntr_account_type: "N",
+      cntr_account_num: "200000000001",
+      wd_pass_phrase: "NONE",
+      wd_print_content: "환불금액",
+      name_check_option: "off",
+      tran_dtime: "20220309012400",
+      req_cnt: "1",
+      req_list: [
+        {
+          tran_no: "1",
+          bank_tran_id: genTransId(),
+          fintech_use_num: tofintechno,
+          print_content: "쇼핑몰환불",
+          tran_amt: amount,
+          req_client_name: "홍길동",
+          req_client_fintech_use_num: tofintechno,
+          req_client_num: "HONGGILDONG1234",
+          transfer_purpose: "ST", //위에 출금이체와 맞춰주려고(ST) TR->ST로 수정
+        },
+      ],
+    };
+    
+    const twoLeggedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJNMjAyMjAwMzgyIiwic2NvcGUiOlsib29iIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjU0NTMyMzY0LCJqdGkiOiJmMjViZTk4ZC1lYzY4LTRjMjctYmYxNy1hZWViYzA3YjQ5M2QifQ.8nFbfANG8iEnsJPjuRFF9cmL64841qjxeBeyONutIMM";
+    const option = {
+      method: "POST",
+      url: "/v2.0/transfer/deposit/fin_num",
+      headers: {
+        Authorization: `bearer ${twoLeggedToken}`,
+      },
+      data: sendData,
+    };
+
+    axios(option).then(({ data }) => {
+      console.log(data);
+      if (data.rep_code === "A0000") {
+        alert("결제 성공");
+      }
+    });
+  };
 
   return (
     <ModalCardBlock>
